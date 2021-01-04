@@ -1,0 +1,76 @@
+<Tela1>
+    cols: 1
+    BoxLayout:
+        size_hint_y: 0.2
+        pading: 10
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.75, 0.75, 0.75, 0.5
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Label:
+            text: "Digite a url"
+            font_size: 22
+            size_hint: 0.25, None
+            height: 30
+            halign: "center"
+            pos_hint: {"center_y": 0.5}
+        TextInput:
+            id: url_text
+            spacing: 10
+            multiline: False
+            size_hint: 0.5, None
+            height: 30
+            pos_hint: {"center_y": 0.5}
+        Button:
+            spacing: 10
+            text: "Baixar"
+            size_hint: 0.25, None
+            height: 30
+            pos_hint: {"center_y": 0.5}
+            on_press: root.download()
+    
+    ScrollView:
+        canvas.before:
+            Color:
+                rgba: 0.5, 0.5, 0.5, 0.5
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            id:box
+            padding: 10, 10
+            orientation:'vertical'
+            size_hint_y:None
+            height:self.minimum_height
+
+
+    Label:
+        size_hint: 0.3, 0.35
+        pos_hint: {"center_x": 0.5}
+        canvas.before:
+            Color:
+                rgba: 0.35, 0.35, 0.35, 0.5
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        id: status
+        text: ""
+
+<Video>
+    BoxLayout:
+        spacing: 10, 10
+        size_hint_y:None
+        height: 60
+        canvas.before:
+            Line:
+                rectangle: self.pos[0], self.pos[1], self.size[0], self.size[1]
+        AsyncImage:
+            id: video_image
+            size_hint: 1,1
+            source: " "
+        Label:
+            id: video_text
+            font_size: 18
