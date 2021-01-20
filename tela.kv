@@ -1,7 +1,7 @@
 <Tela1>
-    cols: 1
-    BoxLayout:
-        size_hint_y: 0.2
+    orientation:'vertical'
+    BoxLayout:  
+        size_hint: 1, 0.1
         pading: 10
         spacing: 10
         canvas.before:
@@ -31,24 +31,24 @@
             height: 30
             pos_hint: {"center_y": 0.5}
             on_press: root.download()
-    
-    ScrollView:
-        canvas.before:
-            Color:
-                rgba: 0.5, 0.5, 0.5, 0.5
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        BoxLayout:
-            id:box
-            padding: 10, 10
-            orientation:'vertical'
-            size_hint_y:None
-            height:self.minimum_height
 
+    BoxLayout:
+        size_hint: 1, 0.8 
+        ScrollView:
+            canvas.before:
+                Color:
+                    rgba: 0.5, 0.5, 0.5, 0.5
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            BoxLayout:
+                id:box
+                padding: 10, 10
+                orientation:'vertical'
+                size_hint_y:None
 
     Label:
-        size_hint: 0.3, 0.35
+        size_hint: 1, 0.1
         pos_hint: {"center_x": 0.5}
         canvas.before:
             Color:

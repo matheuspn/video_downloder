@@ -6,7 +6,7 @@ import asyncio
 from downloader import baixar, get_info
 
 
-class Tela1(GridLayout):
+class Tela1(BoxLayout):
     
     def download(self):
         self.ids.status.text = "baixando ..."
