@@ -103,3 +103,6 @@ Redis/
 .vscode
 
 downloads/
+
+#kivyMD
+kivymd/
