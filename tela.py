@@ -7,6 +7,9 @@ from downloader import baixar, get_info
 
 class Home(MDBoxLayout):
     
+    def options(self):
+        print("Cog test")
+
     def download(self):
         self.ids.status.text = "baixando ..."
         url = self.ids.url_text.text
@@ -24,6 +27,8 @@ class Home(MDBoxLayout):
         meta = await asyncio.to_thread(get_info, url= url)
         # adiciona a thumb na tela com o título
         self.ids.box.add_widget(Video(video_text= meta[0], video_image= meta[1]))
+
+    
 
 class Video(MDBoxLayout):
     def __init__(self,video_text='',video_image= '',**kwargs):

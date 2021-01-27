@@ -1,70 +1,55 @@
 <Home>
     orientation:'vertical'
 
-    MDBottomNavigation:
+    MDToolbar:
+        title: "Vidder"
+        right_action_items: [["cog", lambda x: root.options()]]
+        md_bg_color: app.theme_cls.primary_dark
 
-        MDBottomNavigationItem:
-            name: "Home"
-            text: "Home"
-
+    MDBoxLayout:
+        size_hint: 1, 0.8 
+        ScrollView:
             MDBoxLayout:
-                orientation: "vertical"
+                id:box
+                padding: "10dp", "10dp"
+                orientation:'vertical'
+                size_hint_y:None
 
-                MDBoxLayout:  
-                    size_hint: 1, 0.1
-                    pading: 10
-                    spacing: 10
-                    MDLabel:
-                        text: "Vidder"
-                        size_hint: 0.25, None
-                        halign: "center"
-                        pos_hint: {"center_y": 0.1}
-                        height: 30
-                    MDTextField:
-                        hint_text: "URL"
-                        id: url_text
-                        spacing: 10
-                        multiline: False
-                        size_hint: 0.5, None
-                        height: 30
-                        pos_hint: {"center_y": 0.1}
-                    MDRaisedButton:
-                        spacing: 10
-                        text: "Baixar"
-                        size_hint: 0.25, None
-                        height: 30
-                        pos_hint: {"center_y": 0.1}
-                        on_press: root.download()
+    MDLabel:
+        size_hint: 1, 0.1
+        id: status
+        halign: "center"
+        valign: "center"
+        text: ""
 
-                MDBoxLayout:
-                    size_hint: 1, 0.8 
-                    ScrollView:
-                        MDBoxLayout:
-                            id:box
-                            padding: 10, 10
-                            orientation:'vertical'
-                            size_hint_y:None
-
-                MDLabel:
-                    size_hint: 1, 0.1
-                    id: status
-                    halign: "center"
-                    valign: "center"
-                    text: ""
-
-        MDBottomNavigationItem:
-            name: "opt"
-            text: "Options"
-            MDLabel:
-                text: "Screen 2"
-                halign: "center"
+    MDBoxLayout:  
+        size_hint: 0.9, 0.1
+        pading: "50dp"
+        spacing: "30dp"
+        pos_hint: {"center_x": 0.5}
+        MDTextField:
+            hint_text: "URL"
+            id: url_text
+            spacing: "10dp"
+            multiline: False
+            size_hint: 0.6, None
+            height: "30dp"
+            pos_hint: {"center_y": 0.5}
+        MDRaisedButton:
+            spacing: "10dp"
+            text: "Baixar"
+            size_hint: 0.2, None
+            height: "30dp"
+            pos_hint: {"center_y": 0.5}
+            on_press: root.download()
+            md_bg_color: app.theme_cls.primary_dark
     
 
 <Video>
     MDBoxLayout:
-        spacing: 10, 10
+        spacing: "10dp", "10dp"
         size_hint_y:None
-        height: 60
+        height: "60dp"
         canvas.before:
             Line:
                 rectangle: self.pos[0], self.pos[1], self.size[0], self.size[1]
@@ -74,4 +59,4 @@
             source: " "
         MDLabel:
             id: video_text
-            font_size: 18
+            font_size: "18sp"
