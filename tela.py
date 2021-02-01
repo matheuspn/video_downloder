@@ -12,19 +12,37 @@ class Home(MDBoxLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.menu = self.create_menu(
-                "test", self.ids.toolbar.ids.menu_button,
-            )
+        self.menu = self.create_menu("test", self.ids.toolbar.ids.menu_button,)
 
     # menu
     def create_menu(self, text, instance):
-        menu_items = [{"icon": "git", "text": text} for i in range(5)]
-        menu = MDDropdownMenu(caller=instance, items=menu_items, width_mult=5)
+        menu_items = [
+            {"text": "Configurações"},
+            {"text": "Tema escuro"}
+        ]
+        menu = MDDropdownMenu(caller=instance, items=menu_items, width_mult=3)
         menu.bind(on_release=self.menu_callback)
         return menu
 
     def menu_callback(self, instance_menu, instance_menu_item):
-        instance_menu.dismiss()
+        app = MDApp.get_running_app()
+
+        if instance_menu_item.text == "Configurações":
+            print("teste1")
+            instance_menu.dismiss()
+        # trocando os temas entre claro e escuro
+        elif instance_menu_item.text.startswith("Tema"):
+            tema = instance_menu_item.text
+            if tema == "Tema claro":
+                app.theme_cls.theme_style = "Dark"
+                instance_menu_item.text = "Tema escuro"
+            elif tema == "Tema escuro":
+                app.theme_cls.theme_style = "Light"
+                instance_menu_item.text = "Tema claro"
+        else:
+            instance_menu.dismiss()
+        #print(instance_menu, instance_menu_item)
+        
 
 
     def options(self):
@@ -53,7 +71,6 @@ class Video(MDBoxLayout):
         super().__init__(**kwargs)
         self.ids.video_text.text = video_text
         self.ids.video_image.source = video_image
-
 
 
 class CustomToolbar(ThemableBehavior, RectangularElevationBehavior, MDBoxLayout):
