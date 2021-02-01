@@ -1,3 +1,11 @@
+<ScreenMngr>:
+    Home:
+        id: home
+        name: "home"
+    Configs:
+        id: config
+        name: "config"
+
 <CustomToolbar>:
     size_hint_y: None
     height: self.theme_cls.standard_increment
@@ -5,12 +13,17 @@
     spacing: "12dp"
 
     MDLabel:
-        text: "Vidder"
+        text: "[ref= Vidder]Vidder[/ref]"
+        markup: True
         pos_hint: {"center_y": .5}
         size_hint_x: None
         width: self.texture_size[0]
         text_size: None, None
         font_style: 'H6'
+        halign: "center"
+        on_ref_press: 
+            app.root.current = "home"
+            app.root.transition.direction = 'right'
 
     Widget:
 
@@ -20,54 +33,67 @@
         pos_hint: {"center_y": .5}
         on_release: app.root.menu.open()
 
+<Configs>:
+    MDBoxLayout:
+        orientation:'vertical'
+
+        CustomToolbar:
+            id: toolbar
+            elevation: 10
+            pos_hint: {"top": 1}
+ 
+        MDLabel:
+            text: "teste"
+            halign: "center"
 
 <Home>
     id: home
-    orientation:'vertical'
-
-    CustomToolbar:
-        id: toolbar
-        elevation: 10
-        pos_hint: {"top": 1}
-
     MDBoxLayout:
-        size_hint: 1, 0.8 
-        ScrollView:
-            MDBoxLayout:
-                id:box
-                padding: "10dp", "10dp"
-                orientation:'vertical'
-                size_hint_y:None
+        orientation:'vertical'
 
-    MDLabel:
-        size_hint: 1, 0.1
-        id: status
-        halign: "center"
-        valign: "center"
-        text: ""
+        CustomToolbar:
+            id: toolbar
+            elevation: 10
+            pos_hint: {"top": 1}
 
-    MDBoxLayout:  
-        size_hint: 0.9, 0.1
-        pading: "50dp"
-        spacing: "30dp"
-        pos_hint: {"center_x": 0.5}
-        MDTextField:
-            hint_text: "URL"
-            id: url_text
-            spacing: "10dp"
-            multiline: False
-            size_hint: 0.6, None
-            height: "30dp"
-            pos_hint: {"center_y": 0.5}
-        MDRaisedButton:
-            spacing: "10dp"
-            text: "Baixar"
-            size_hint: 0.2, None
-            height: "30dp"
-            pos_hint: {"center_y": 0.5}
-            on_press: root.download()
-            md_bg_color: app.theme_cls.primary_dark
-    
+        MDBoxLayout:
+            size_hint: 1, 0.8 
+            ScrollView:
+                MDBoxLayout:
+                    id:box
+                    padding: "10dp", "10dp"
+                    orientation:'vertical'
+                    size_hint_y:None
+
+        MDLabel:
+            size_hint: 1, 0.1
+            id: status
+            halign: "center"
+            valign: "center"
+            text: ""
+
+        MDBoxLayout:  
+            size_hint: 0.9, 0.1
+            pading: "50dp"
+            spacing: "30dp"
+            pos_hint: {"center_x": 0.5}
+            MDTextField:
+                hint_text: "URL"
+                id: url_text
+                spacing: "10dp"
+                multiline: False
+                size_hint: 0.6, None
+                height: "30dp"
+                pos_hint: {"center_y": 0.5}
+            MDRaisedButton:
+                spacing: "10dp"
+                text: "Baixar"
+                size_hint: 0.2, None
+                height: "30dp"
+                pos_hint: {"center_y": 0.5}
+                on_press: root.download()
+                md_bg_color: app.theme_cls.primary_dark
+        
 
 <Video>
     MDBoxLayout:

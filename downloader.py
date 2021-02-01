@@ -48,7 +48,7 @@ def get_info(url):
     try:
         meta['thumbnail'] 
     except:
-        meta['thumbnail'] = 'imagem_padrao.jpg'
+        meta['thumbnail'] = 'std_img.jpg'
         return [meta['title'], meta['thumbnail']]
     finally:
         return [meta['title'], meta['thumbnail']]
