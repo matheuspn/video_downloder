@@ -1,4 +1,5 @@
 import youtube_dl
+import json
 
 
 class MyLogger(object):
@@ -16,25 +17,15 @@ def my_hook(d):
     if d['status'] == 'finished':
         print('Done downloading, now converting ...')
 
+with open("ydl_opts.json", "r") as f:
+    ydl_opts = json.load(f)
 
-ydl_opts = {
-    'format': 'bestaudio/best',
-    'outtmpl': 'downloads/%(title)s.%(ext)s',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    },
-        {'key': 'EmbedThumbnail'},
-        {'key': 'FFmpegMetadata'},
-        ],
-    'logger': MyLogger(),
-    'progress_hooks': [my_hook],
-    'writethumbnail': True,
-}
+def baixar(url, opt):
 
-def baixar(url):
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    ydl_opts[opt]['logger'] = MyLogger()
+    ydl_opts[opt]['progress_hooks'] = [my_hook]
+
+    with youtube_dl.YoutubeDL(ydl_opts[opt]) as ydl:
         ydl.download([url])
 
     return True

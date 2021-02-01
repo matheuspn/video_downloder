@@ -6,6 +6,11 @@
         id: config
         name: "config"
 
+<Check@MDCheckbox>:
+    group: 'group'
+    size_hint: None, None
+    size: dp(48), dp(48)
+
 <CustomToolbar>:
     size_hint_y: None
     height: self.theme_cls.standard_increment
@@ -42,10 +47,55 @@
             elevation: 10
             pos_hint: {"top": 1}
  
-        MDLabel:
-            text: "teste"
-            halign: "center"
-
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                spacing: "10dp"
+                padding: "20dp", "20dp"
+                MDLabel:
+                    size_hint_x: 0.3
+                    id: audio
+                    text: "mp3"
+                    halign: "center"
+                Check:
+                    active: True
+                    id: check_audio
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    on_active: root.teste(*args)
+                Widget:
+                    size_hint_x: 0.35
+            MDSeparator:
+            MDBoxLayout:
+                spacing: "10dp"
+                padding: "20dp", "20dp"
+                MDLabel:
+                    size_hint_x: 0.3
+                    id: video
+                    text: "mp4"
+                    halign: "center"
+                Check:
+                    id: check_video
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    on_active: root.teste(*args)
+                Widget:
+                    size_hint_x: 0.35
+            MDSeparator:
+            MDBoxLayout:
+                spacing: "10dp"
+                padding: "20dp", "20dp"
+                MDLabel:
+                    size_hint_x: 0.3
+                    id: thumb
+                    text: "Thumbnail e dados"
+                    halign: "center"
+                MDCheckbox:
+                    size_hint: None, None
+                    size: dp(48), dp(48)
+                    id: check_thumb
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    on_active: root.teste(*args)
+                Widget:
+                    size_hint_x: 0.35
 <Home>
     id: home
     MDBoxLayout:
@@ -97,7 +147,7 @@
 
 <Video>
     MDBoxLayout:
-        spacing: "10dp", "10dp"
+        spacing: "10dp"
         size_hint_y:None
         height: "60dp"
         canvas.before:

@@ -1,29 +1,34 @@
-from kivymd.app import MDApp
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.menu import MDDropdownMenu
-from kivymd.theming import ThemableBehavior
-from kivymd.uix.behaviors import RectangularElevationBehavior
-from kivymd.uix.screen import MDScreen
+import asyncio
 
 from kivy.uix.screenmanager import ScreenManager
 
-import asyncio
 from downloader import baixar, get_info
+from kivymd.app import MDApp
+from kivymd.theming import ThemableBehavior
+from kivymd.uix.behaviors import RectangularElevationBehavior
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.menu import MDDropdownMenu
+from kivymd.uix.screen import MDScreen
+
 
 class Configs(MDScreen):
-    pass
+    
+    def teste(self, checkbox, value):
+        if value:
+            print(f"{checkbox}ativado")
+        else: print(f"{checkbox}desativado")
 
 class Home(MDScreen):
 
     def download(self):
         self.ids.status.text = "baixando ..."
         url = self.ids.url_text.text
-        asyncio.create_task(Home.info(self,url))
+        asyncio.create_task(Home.info(self, url))
         asyncio.create_task(Home.baixa(self, url))
 
     # chama a função download 
     async def baixa(self, url):
-        #acabou = await asyncio.to_thread(baixar, url= url)
+        acabou = await asyncio.to_thread(baixar, url= url, opt= 0)
         self.ids.status.text = "concluído"
 
     # pega as informações do vídeo baixado
@@ -54,7 +59,7 @@ class ScreenMngr(ScreenManager):
     def create_menu(self, text, instance):
         menu_items = [
             {"text": "Configurações"},
-            {"text": "Tema escuro"}
+            {"text": "Tema claro"}
         ]
         menu = MDDropdownMenu(caller=instance, items=menu_items, width_mult=3)
         menu.bind(on_release=self.menu_callback)
@@ -69,12 +74,12 @@ class ScreenMngr(ScreenManager):
         # trocando os temas entre claro e escuro
         elif instance_menu_item.text.startswith("Tema"):
             tema = instance_menu_item.text
-            if tema == "Tema claro":
+            if tema == "Tema escuro":
                 app.theme_cls.theme_style = "Dark"
-                instance_menu_item.text = "Tema escuro"
-            elif tema == "Tema escuro":
-                app.theme_cls.theme_style = "Light"
                 instance_menu_item.text = "Tema claro"
+            elif tema == "Tema claro":
+                app.theme_cls.theme_style = "Light"
+                instance_menu_item.text = "Tema escuro"
         else:
             instance_menu.dismiss()
         #print(instance_menu, instance_menu_item)
