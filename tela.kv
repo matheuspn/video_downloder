@@ -1,10 +1,34 @@
+<CustomToolbar>:
+    size_hint_y: None
+    height: self.theme_cls.standard_increment
+    padding: "5dp"
+    spacing: "12dp"
+
+    MDLabel:
+        text: "Vidder"
+        pos_hint: {"center_y": .5}
+        size_hint_x: None
+        width: self.texture_size[0]
+        text_size: None, None
+        font_style: 'H6'
+
+    Widget:
+
+    MDIconButton:
+        id: menu_button
+        icon: "cog"
+        pos_hint: {"center_y": .5}
+        on_release: app.root.menu.open()
+
+
 <Home>
+    id: home
     orientation:'vertical'
 
-    MDToolbar:
-        title: "Vidder"
-        right_action_items: [["cog", lambda x: root.options()]]
-        md_bg_color: app.theme_cls.primary_dark
+    CustomToolbar:
+        id: toolbar
+        elevation: 10
+        pos_hint: {"top": 1}
 
     MDBoxLayout:
         size_hint: 1, 0.8 
