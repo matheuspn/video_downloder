@@ -61,7 +61,7 @@
                     active: True
                     id: check_audio
                     pos_hint: {'center_x': .5, 'center_y': .5}
-                    on_active: root.teste(*args)
+                    on_active: root.check_audio(*args)
                 Widget:
                     size_hint_x: 0.35
             MDSeparator:
@@ -76,7 +76,7 @@
                 Check:
                     id: check_video
                     pos_hint: {'center_x': .5, 'center_y': .5}
-                    on_active: root.teste(*args)
+                    on_active: root.check_video(*args)
                 Widget:
                     size_hint_x: 0.35
             MDSeparator:
@@ -86,14 +86,33 @@
                 MDLabel:
                     size_hint_x: 0.3
                     id: thumb
-                    text: "Thumbnail e dados"
+                    text: "Thumbnail and metadata"
                     halign: "center"
                 MDCheckbox:
+                    active: True
                     size_hint: None, None
                     size: dp(48), dp(48)
                     id: check_thumb
                     pos_hint: {'center_x': .5, 'center_y': .5}
-                    on_active: root.teste(*args)
+                    on_active: root.check_thumb(*args)
+                Widget:
+                    size_hint_x: 0.35
+            MDSeparator:
+            MDBoxLayout:
+                spacing: "10dp"
+                padding: "20dp", "20dp"
+                MDLabel:
+                    size_hint_x: 0.3
+                    id: playlist
+                    text: "Allow playlists"
+                    halign: "center"
+                MDCheckbox:
+                    active: True
+                    size_hint: None, None
+                    size: dp(48), dp(48)
+                    id: check_playlist
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    on_active: root.check_playlist(*args)
                 Widget:
                     size_hint_x: 0.35
 <Home>

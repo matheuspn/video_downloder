@@ -13,3 +13,5 @@ KivyMD 0.104.1 +
 youtube_dl 2021.01.24.1 +
 
 atomicparsley for adding thumbnails in mp4 videos
+
+ffmpeg for convert to mp3/mp4 and for adding thubmnails to mp3

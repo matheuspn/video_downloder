@@ -17,15 +17,26 @@ def my_hook(d):
     if d['status'] == 'finished':
         print('Done downloading, now converting ...')
 
-with open("ydl_opts.json", "r") as f:
-    ydl_opts = json.load(f)
+ydl_opts = {
+        "format": "bestaudio/best",
+        "outtmpl": "downloads/%(title)s.%(ext)s",
+        "noplaylist": True,
+        "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "192"
+                },
+            {"key": "EmbedThumbnail"},
+            {"key": "FFmpegMetadata"}
+        ],
+        "writethumbnail": True,
+        "logger": MyLogger(),
+        "progess_hooks": [my_hook]
+    }
 
-def baixar(url, opt):
+def baixar(url, ydl_opts):
 
-    ydl_opts[opt]['logger'] = MyLogger()
-    ydl_opts[opt]['progress_hooks'] = [my_hook]
-
-    with youtube_dl.YoutubeDL(ydl_opts[opt]) as ydl:
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
     return True

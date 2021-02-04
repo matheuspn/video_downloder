@@ -2,7 +2,7 @@ import asyncio
 
 from kivy.uix.screenmanager import ScreenManager
 
-from downloader import baixar, get_info
+from downloader import baixar, get_info, ydl_opts
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.behaviors import RectangularElevationBehavior
@@ -12,6 +12,40 @@ from kivymd.uix.screen import MDScreen
 
 
 class Configs(MDScreen):
+
+    def check_thumb(self, checkbox, value): 
+        if value:
+            ydl_opts["writethumbnail"] = True
+            ydl_opts['postprocessors'][1] = {"key": "EmbedThumbnail"}
+            ydl_opts['postprocessors'][2] = {"key": "FFmpegMetadata"}
+        else:
+            del ydl_opts["writethumbnail"]
+            del ydl_opts['postprocessors'][1] 
+            del ydl_opts['postprocessors'][2] 
+    
+    def check_video(self, checkbox, value): 
+        if value:
+            ydl_opts['postprocessors'][0] = {
+                "key": "FFmpegVideoConvertor",
+                "preferedformat": "mp4"
+                }
+            ydl_opts['format'] = "bestvideo+bestaudio/best"
+
+    def check_audio(self, checkbox, value): 
+        if value:
+            ydl_opts['postprocessors'][0] = {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "192"
+            }
+            ydl_opts['format'] = "bestaudio/best"
+    
+    def check_playlist(self, checkbox, value): 
+        if value:
+            ydl_opts['noplaylist'] = False
+        else: 
+            ydl_opts['noplaylist'] = True
+    
     
     def teste(self, checkbox, value):
         if value:
@@ -24,12 +58,13 @@ class Home(MDScreen):
         self.ids.status.text = "baixando ..."
         url = self.ids.url_text.text
         asyncio.create_task(Home.info(self, url))
-        asyncio.create_task(Home.baixa(self, url))
+        asyncio.create_task(Home.baixa(self, url, ydl_opts))
 
     # chama a função download 
-    async def baixa(self, url):
-        acabou = await asyncio.to_thread(baixar, url= url, opt= 0)
-        self.ids.status.text = "concluído"
+    async def baixa(self, url, ydl_opts):
+        print(ydl_opts)
+        acabou = await asyncio.to_thread(baixar, url= url, opts= ydl_opts)
+        if acabou: self.ids.status.text = "concluído"
 
     # pega as informações do vídeo baixado
     async def info(self, url):
