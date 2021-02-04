@@ -16,12 +16,12 @@ class Configs(MDScreen):
     def check_thumb(self, checkbox, value): 
         if value:
             ydl_opts["writethumbnail"] = True
-            ydl_opts['postprocessors'][1] = {"key": "EmbedThumbnail"}
-            ydl_opts['postprocessors'][2] = {"key": "FFmpegMetadata"}
+            ydl_opts['postprocessors'].append({"key": "EmbedThumbnail"})
+            ydl_opts['postprocessors'].append({"key": "FFmpegMetadata"})
         else:
             del ydl_opts["writethumbnail"]
-            del ydl_opts['postprocessors'][1] 
-            del ydl_opts['postprocessors'][2] 
+            del ydl_opts['postprocessors'][2]
+            del ydl_opts['postprocessors'][1]
     
     def check_video(self, checkbox, value): 
         if value:
@@ -42,7 +42,7 @@ class Configs(MDScreen):
     
     def check_playlist(self, checkbox, value): 
         if value:
-            ydl_opts['noplaylist'] = False
+            del ydl_opts['noplaylist']
         else: 
             ydl_opts['noplaylist'] = True
     
@@ -63,7 +63,7 @@ class Home(MDScreen):
     # chama a função download 
     async def baixa(self, url, ydl_opts):
         print(ydl_opts)
-        acabou = await asyncio.to_thread(baixar, url= url, opts= ydl_opts)
+        acabou = await asyncio.to_thread(baixar, url= url, ydl_opts= ydl_opts)
         if acabou: self.ids.status.text = "concluído"
 
     # pega as informações do vídeo baixado
